@@ -6,6 +6,57 @@ import { deserializePacket } from '@/lib/optical';
 // Dynamically import jsQR only on client side
 let jsQRModule: typeof import('jsqr') | null = null;
 
+function decodeRgbPacket(imageData: ImageData) {
+  const source = imageData.data;
+  const rgbBytes = new Uint8Array((source.length / 4) * 3);
+
+  for (let srcIndex = 0, dstIndex = 0; srcIndex < source.length; srcIndex += 4) {
+    rgbBytes[dstIndex++] = source[srcIndex];
+    rgbBytes[dstIndex++] = source[srcIndex + 1];
+    rgbBytes[dstIndex++] = source[srcIndex + 2];
+  }
+
+  if (rgbBytes.length < 20) return null;
+
+  const view = new DataView(rgbBytes.buffer, rgbBytes.byteOffset, rgbBytes.byteLength);
+  const packetId = view.getUint32(0, false);
+  const totalPackets = view.getUint32(4, false);
+  const fileId = view.getUint32(8, false);
+  const payloadLen = view.getUint32(12, false);
+  const metadataLen = view.getUint32(16, false);
+
+  if (totalPackets === 0 || totalPackets > 100000) return null;
+  if (payloadLen === 0 || payloadLen > rgbBytes.length) return null;
+  if (metadataLen > rgbBytes.length) return null;
+
+  const packetSize = 20 + metadataLen + payloadLen;
+  if (packetSize > rgbBytes.length) return null;
+
+  let fileName: string | undefined;
+  let mimeType: string | undefined;
+
+  if (metadataLen > 0) {
+    try {
+      const metadataBytes = rgbBytes.slice(20, 20 + metadataLen);
+      const metadataText = new TextDecoder().decode(metadataBytes);
+      const metadata = JSON.parse(metadataText) as { fileName?: string; mimeType?: string };
+      fileName = metadata.fileName;
+      mimeType = metadata.mimeType;
+    } catch {
+      return null;
+    }
+  }
+
+  return {
+    packetId,
+    totalPackets,
+    fileId,
+    payload: rgbBytes.slice(20 + metadataLen, 20 + metadataLen + payloadLen),
+    fileName,
+    mimeType,
+  };
+}
+
 export function useOpticalReceiver() {
   const [isReceiving, setIsReceiving] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -29,18 +80,27 @@ export function useOpticalReceiver() {
   }, []);
 
   const processFrame = useCallback((imageData: ImageData) => {
-    if (!isReceiving || isCompleted.current || !jsQRModule) return;
+    if (!isReceiving || isCompleted.current) return;
 
-    const code = jsQRModule.default(
-      imageData.data,
-      imageData.width,
-      imageData.height,
-      { inversionAttempts: 'dontInvert' }
-    );
+    let packet = null as ReturnType<typeof deserializePacket> | ReturnType<typeof decodeRgbPacket>;
 
-    if (!code?.data) return;
+    if (jsQRModule) {
+      const code = jsQRModule.default(
+        imageData.data,
+        imageData.width,
+        imageData.height,
+        { inversionAttempts: 'dontInvert' }
+      );
 
-    const packet = deserializePacket(code.data);
+      if (code?.data) {
+        packet = deserializePacket(code.data);
+      }
+    }
+
+    if (!packet) {
+      packet = decodeRgbPacket(imageData);
+    }
+
     if (!packet) return;
 
     // Reject packets from a different session

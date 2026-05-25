@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Production-grade optical communication platform for cross-platform file transfer",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "workspaces": [
     "packages/core",
     "packages/optical-engine",
@@ -26,7 +27,10 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
+    "next": "14.2.3",
     "prettier": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.0.0"
   },
   "engines": {

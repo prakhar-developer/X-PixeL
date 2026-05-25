@@ -48,3 +48,5 @@ apps/mobile/android/build/
 # Temporary
 *.tmp
 .DS_Store
+.vercel
+.env*

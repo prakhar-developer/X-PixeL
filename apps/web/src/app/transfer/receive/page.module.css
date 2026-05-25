@@ -136,6 +136,67 @@
   color: var(--text-primary);
 }
 
+/* ── Protocol Support ──────────────────────────────────── */
+.protocolCard {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.protocolCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.protocolCardTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.protocolCardHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.protocolList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.protocolPill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.protocolPill strong {
+  font-weight: 700;
+}
+
+.supported {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #a7f3d0;
+}
+
+.unsupported {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.28);
+  color: #fecaca;
+}
+
 /* ── Idle State ─────────────────────────────────────────── */
 .idleState {
   display: flex;

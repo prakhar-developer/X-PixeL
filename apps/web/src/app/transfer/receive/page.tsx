@@ -13,6 +13,12 @@ export default function ReceiverPage() {
   const [cameraReady, setCameraReady] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
 
+  const receiveModes = [
+    { label: 'QR Dynamic', status: 'Supported', tone: 'supported' },
+    { label: 'RGB LSB', status: 'Supported', tone: 'supported' },
+    { label: 'Invisible Flicker', status: 'Not supported', tone: 'unsupported' },
+  ] as const;
+
   const {
     isReceiving,
     progress,
@@ -157,6 +163,21 @@ export default function ReceiverPage() {
         <div className={styles.rightCol}>
           <div className={styles.statusPanel}>
             <h2 className={styles.panelTitle}>Transfer Status</h2>
+
+            <div className={styles.protocolCard}>
+              <div className={styles.protocolCardHeader}>
+                <span className={styles.protocolCardTitle}>Receive modes</span>
+                <span className={styles.protocolCardHint}>Current receiver support</span>
+              </div>
+              <div className={styles.protocolList}>
+                {receiveModes.map((mode) => (
+                  <div key={mode.label} className={`${styles.protocolPill} ${styles[mode.tone]}`}>
+                    <span>{mode.label}</span>
+                    <strong>{mode.status}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             {/* Idle */}
             {!isReceiving && !receivedFile && !error && (

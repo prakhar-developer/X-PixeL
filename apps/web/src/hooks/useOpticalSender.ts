@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
-import { encodeFileToFrames } from '@/lib/optical';
+import { useState, useCallback } from 'react';
+import { encodeFileToFrames, TransmissionProtocol, PROTOCOLS } from '@/lib/optical';
 
 export function useOpticalSender() {
   const [isEncoding, setIsEncoding] = useState(false);
@@ -9,8 +9,10 @@ export function useOpticalSender() {
   const [encodeStatus, setEncodeStatus] = useState('');
   const [frames, setFrames] = useState<string[]>([]);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
+  const [activeProtocol, setActiveProtocol] = useState<TransmissionProtocol>('QR_DYNAMIC');
 
-  const sendFile = useCallback(async (file: File) => {
+  const sendFile = useCallback(async (file: File, protocol: TransmissionProtocol = 'QR_DYNAMIC') => {
+    setActiveProtocol(protocol);
     setIsEncoding(true);
     setEncodeProgress(0);
     setFrames([]);
@@ -20,7 +22,7 @@ export function useOpticalSender() {
       const result = await encodeFileToFrames(file, ({ progress, status }) => {
         setEncodeProgress(progress);
         setEncodeStatus(status);
-      });
+      }, protocol);
       setFrames(result);
     } catch (err) {
       console.error('Encoding failed:', err);
@@ -39,7 +41,11 @@ export function useOpticalSender() {
     setEncodeProgress(0);
     setEncodeStatus('');
     setFrames([]);
+    setActiveProtocol('QR_DYNAMIC');
   }, []);
+
+  // Derive FPS from the active protocol
+  const activeFps = PROTOCOLS.find((p) => p.id === activeProtocol)?.fps ?? 15;
 
   return {
     sendFile,
@@ -50,5 +56,7 @@ export function useOpticalSender() {
     encodeStatus,
     frames,
     isBroadcasting,
+    activeProtocol,
+    activeFps,
   };
 }

@@ -11,6 +11,7 @@ export default function ReceiverPage() {
   const hiddenCanvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | undefined>(undefined);
   const [cameraReady, setCameraReady] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
 
   const {
     isReceiving,
@@ -18,6 +19,7 @@ export default function ReceiverPage() {
     receivedCount,
     totalCount,
     receivedFile,
+    receivedFileName,
     error,
     processFrame,
     startReceiving,
@@ -60,18 +62,45 @@ export default function ReceiverPage() {
     const url = URL.createObjectURL(receivedFile);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `x-pixel-transfer-${Date.now()}`;
+    a.download = receivedFileName ?? `x-pixel-transfer-${Date.now()}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
+  const requestCameraAccess = useCallback(async () => {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setCameraError('Camera access is not supported in this browser.');
+      return false;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: 1280, height: 960 },
+        audio: false,
+      });
+
+      stream.getTracks().forEach((track) => track.stop());
+      setCameraError(null);
+      return true;
+    } catch {
+      setCameraError('Camera permission was blocked. Please allow camera access in the browser prompt and try again.');
+      return false;
+    }
+  }, []);
+
+  const handleStartReceiving = useCallback(async () => {
+    const allowed = await requestCameraAccess();
+    if (!allowed) return;
+    startReceiving();
+  }, [requestCameraAccess, startReceiving]);
+
   return (
     <div className={styles.page}>
       {/* Header */}
       <div className={styles.header}>
-        <Link href="/transfer" className={styles.backLink}>
+        <Link href="/" className={styles.backLink}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 12H5M12 5l-7 7 7 7"/>
           </svg>
@@ -144,11 +173,12 @@ export default function ReceiverPage() {
                 </p>
                 <button
                   className={styles.startBtn}
-                  onClick={startReceiving}
+                  onClick={handleStartReceiving}
                   disabled={!cameraReady}
                 >
                   {cameraReady ? '▶ Start Scanning' : 'Waiting for camera...'}
                 </button>
+                {cameraError && <p className={styles.errorText}>⚠ {cameraError}</p>}
               </div>
             )}
 
@@ -201,7 +231,7 @@ export default function ReceiverPage() {
                 <div className={styles.successCircle}>✓</div>
                 <h3 className={styles.successTitle}>Transfer Complete!</h3>
                 <p className={styles.successDesc}>
-                  {(receivedFile.size / 1024).toFixed(1)} KB received — {receivedCount} packets decoded
+                  {receivedFileName ?? 'File'} received · {(receivedFile.size / 1024).toFixed(1)} KB — {receivedCount} packets decoded
                 </p>
                 <button className={styles.downloadBtn} onClick={handleDownload}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

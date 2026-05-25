@@ -7,9 +7,9 @@ import styles from './Navigation.module.css';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/transfer', label: 'Transfer' },
-  { href: '/protocol', label: 'Protocol' },
+  { href: '/transfer/send', label: 'Send File' },
+  { href: '/transfer/receive', label: 'Receive File' },
+  { href: '/protocol', label: 'Protocols' },
 ];
 
 export function Navigation() {
@@ -57,8 +57,8 @@ export function Navigation() {
             <span className="pulse-dot" />
             <span className={styles.statusLabel}>Live</span>
           </div>
-          <Link href="/dashboard" className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
-            Launch Dashboard
+          <Link href="/transfer/send" className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
+            Start Sending
           </Link>
         </div>
 

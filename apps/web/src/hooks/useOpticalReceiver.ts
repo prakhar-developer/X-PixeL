@@ -12,6 +12,7 @@ export function useOpticalReceiver() {
   const [receivedCount, setReceivedCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [receivedFile, setReceivedFile] = useState<Blob | null>(null);
+  const [receivedFileName, setReceivedFileName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Internal state refs (not reactive — for use inside processFrame)
@@ -19,6 +20,8 @@ export function useOpticalReceiver() {
   const activeFileId = useRef<number>(-1);
   const totalExpectedPackets = useRef<number>(0);
   const isCompleted = useRef(false);
+  const receivedFileNameRef = useRef<string | null>(null);
+  const receivedMimeTypeRef = useRef<string>('application/octet-stream');
 
   // Preload jsQR
   useEffect(() => {
@@ -48,6 +51,13 @@ export function useOpticalReceiver() {
 
     if (!receivedPackets.current.has(packet.packetId)) {
       receivedPackets.current.set(packet.packetId, packet.payload);
+      if (packet.fileName) {
+        receivedFileNameRef.current = packet.fileName;
+        setReceivedFileName(packet.fileName);
+      }
+      if (packet.mimeType) {
+        receivedMimeTypeRef.current = packet.mimeType;
+      }
       const count = receivedPackets.current.size;
       const total = totalExpectedPackets.current;
 
@@ -75,7 +85,7 @@ export function useOpticalReceiver() {
       offset += p.length;
     }
 
-    const blob = new Blob([result], { type: 'application/octet-stream' });
+    const blob = new Blob([result], { type: receivedMimeTypeRef.current || 'application/octet-stream' });
     setReceivedFile(blob);
     setIsReceiving(false);
   }
@@ -85,12 +95,15 @@ export function useOpticalReceiver() {
     activeFileId.current = -1;
     totalExpectedPackets.current = 0;
     isCompleted.current = false;
+    receivedFileNameRef.current = null;
+    receivedMimeTypeRef.current = 'application/octet-stream';
 
     setIsReceiving(true);
     setProgress(0);
     setReceivedCount(0);
     setTotalCount(0);
     setReceivedFile(null);
+    setReceivedFileName(null);
     setError(null);
   }, []);
 
@@ -99,12 +112,15 @@ export function useOpticalReceiver() {
     activeFileId.current = -1;
     totalExpectedPackets.current = 0;
     isCompleted.current = false;
+    receivedFileNameRef.current = null;
+    receivedMimeTypeRef.current = 'application/octet-stream';
 
     setIsReceiving(false);
     setProgress(0);
     setReceivedCount(0);
     setTotalCount(0);
     setReceivedFile(null);
+    setReceivedFileName(null);
     setError(null);
   }, []);
 
@@ -114,6 +130,7 @@ export function useOpticalReceiver() {
     receivedCount,
     totalCount,
     receivedFile,
+    receivedFileName,
     error,
     processFrame,
     startReceiving,

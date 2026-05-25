@@ -1,0 +1,44 @@
+{
+  "name": "X-Pixel — Optical File Transfer",
+  "short_name": "X-Pixel",
+  "description": "Transfer files at the speed of light. Ultra-secure offline file transfer using optical signals — no Wi-Fi, Bluetooth, or internet required.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0f",
+  "theme_color": "#7c3aed",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Send a File",
+      "short_name": "Send",
+      "description": "Broadcast a file via optical stream",
+      "url": "/transfer/send",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Receive a File",
+      "short_name": "Receive",
+      "description": "Scan and receive an optical stream",
+      "url": "/transfer/receive",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

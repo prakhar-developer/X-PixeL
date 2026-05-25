@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.yarn/cache/
+.yarn/install-state.gz
+
+# Build artifacts
+dist/
+build/
+*.o
+*.so
+*.dylib
+*.dll
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Mobile
+apps/mobile/node_modules/
+apps/mobile/.expo/
+apps/mobile/.expo-shared/
+apps/mobile/dist/
+apps/mobile/ios/Pods/
+apps/mobile/android/.gradle/
+apps/mobile/android/build/
+
+# Temporary
+*.tmp
+.DS_Store

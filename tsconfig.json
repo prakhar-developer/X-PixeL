@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true
+  },
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/optical-engine" },
+    { "path": "./packages/cv-pipeline" },
+    { "path": "./packages/ui-kit" },
+    { "path": "./packages/native" }
+  ],
+  "exclude": ["node_modules", "apps"]
+}

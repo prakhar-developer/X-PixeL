@@ -1,0 +1,373 @@
+.page { overflow-x: hidden; }
+
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,245,255,0.1) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 50% at 80% 50%, rgba(124,58,237,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.heroBadge {
+  display: inline-flex;
+  margin-bottom: 32px;
+  font-size: 0.75rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+.heroSubtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.heroCTA {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 72px;
+}
+
+/* ─── Device visual ──────────────────────────────────────────────────────── */
+.heroVisual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.device { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+.deviceBody {
+  width: 80px;
+  height: 140px;
+  background: rgba(0,245,255,0.05);
+  border: 1px solid rgba(0,245,255,0.2);
+  border-radius: 14px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(0,245,255,0.15);
+  animation: float 4s ease-in-out infinite;
+}
+
+.receiver {
+  background: rgba(124,58,237,0.05);
+  border-color: rgba(124,58,237,0.2);
+  box-shadow: 0 0 30px rgba(124,58,237,0.15);
+  animation-delay: 0.5s;
+}
+
+.deviceScreen {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.qrGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  width: 52px;
+  height: 52px;
+  animation: qr-update 0.5s steps(1) infinite;
+}
+.qrCell { border-radius: 1px; transition: background 0.1s; }
+@keyframes qr-update {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.scanLine {
+  position: absolute;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.8), transparent);
+  animation: scan 2s linear infinite;
+}
+@keyframes scan { from{top:0} to{top:100%} }
+
+.deviceLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.waveContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 300px;
+}
+
+.waveLines { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+
+.waveLine {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  border-radius: 1px;
+  animation: wave-travel 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+@keyframes wave-travel {
+  0% { transform: scaleX(0) translateX(-50%); opacity: 0; }
+  50% { transform: scaleX(1) translateX(0); opacity: 1; }
+  100% { transform: scaleX(0) translateX(50%); opacity: 0; }
+}
+
+.photonLabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+/* ─── Stats ──────────────────────────────────────────────────────────────── */
+.statsSection {
+  padding: 60px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.3);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.statCard {
+  padding: 32px 24px;
+  background: var(--panel);
+  text-align: center;
+  transition: background 0.2s;
+}
+.statCard:hover { background: rgba(0,245,255,0.03); }
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.statUnit { font-size: 0.9rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+.statLabel { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ─── Features ───────────────────────────────────────────────────────────── */
+.featuresSection { background: var(--surface); }
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.sectionSubtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.featureCard { transition: transform 0.2s, box-shadow 0.2s; }
+.featureCard:hover { transform: translateY(-4px); }
+
+.featureHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.featureIcon { font-size: 1.8rem; }
+
+.featureTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.featureDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── Architecture ───────────────────────────────────────────────────────── */
+.archSection {}
+
+.archDiagram {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.archLayer { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+.archLayerContent {
+  width: 100%;
+  padding: 16px 24px;
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: box-shadow 0.2s;
+}
+.archLayerContent:hover { box-shadow: 0 0 20px rgba(0,245,255,0.08); }
+
+.archLayerNum {
+  font-size: 0.7rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.archLayerLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.archLayerDesc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.archArrow {
+  color: var(--border-hover);
+  font-size: 1.2rem;
+  padding: 4px 0;
+  line-height: 1;
+}
+
+/* ─── CTA ────────────────────────────────────────────────────────────────── */
+.ctaSection { padding: 80px 0; }
+
+.ctaCard {
+  position: relative;
+  text-align: center;
+  padding: 72px 40px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.ctaGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,245,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.ctaSubtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.ctaButtons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .featuresGrid { grid-template-columns: repeat(2, 1fr); }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .featuresGrid { grid-template-columns: 1fr; }
+  .heroVisual { display: none; }
+  .archLayerDesc { display: none; }
+}
+@media (max-width: 480px) {
+  .statsGrid { grid-template-columns: 1fr; }
+}

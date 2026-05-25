@@ -1,0 +1,8 @@
+{
+  "/page": "app/page.js",
+  "/transfer/send/page": "app/transfer/send/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/protocol/page": "app/protocol/page.js",
+  "/transfer/page": "app/transfer/page.js",
+  "/transfer/receive/page": "app/transfer/receive/page.js"
+}

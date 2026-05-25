@@ -1,0 +1,296 @@
+.page {
+  min-height: 100vh;
+  padding: 80px 32px 60px;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+.backLink:hover { color: var(--primary); border-color: var(--primary); }
+
+.headerCenter { flex: 1; }
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.titleIcon { font-size: 1.6rem; }
+.subtitle { color: var(--text-secondary); font-size: 0.95rem; margin: 0; }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+
+.leftCol { display: flex; flex-direction: column; }
+.rightCol { position: sticky; top: 80px; }
+
+/* ── Camera ─────────────────────────────────────────────── */
+.cameraWrap {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+
+.webcam {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Corner reticles */
+.reticle {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-color: rgba(99, 102, 241, 0.7);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.tl { top: 16px; left: 16px; border-top-width: 3px; border-left-width: 3px; border-radius: 4px 0 0 0; }
+.tr { top: 16px; right: 16px; border-top-width: 3px; border-right-width: 3px; border-radius: 0 4px 0 0; }
+.bl { bottom: 16px; left: 16px; border-bottom-width: 3px; border-left-width: 3px; border-radius: 0 0 0 4px; }
+.br { bottom: 16px; right: 16px; border-bottom-width: 3px; border-right-width: 3px; border-radius: 0 0 4px 0; }
+
+/* Animated scan line */
+.scanLine {
+  position: absolute;
+  left: 16px; right: 16px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  animation: scan 2s linear infinite;
+  pointer-events: none;
+}
+@keyframes scan {
+  0% { top: 10%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 90%; opacity: 0; }
+}
+
+.cameraOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.7);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Status Panel ───────────────────────────────────────── */
+.statusPanel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panelTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+/* ── Idle State ─────────────────────────────────────────── */
+.idleState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.idleIcon { color: var(--text-muted); }
+.idleText { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+.startBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.startBtn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.startBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Active State ───────────────────────────────────────── */
+.activeState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.progressRing { position: relative; width: 120px; height: 120px; }
+.ring { width: 100%; height: 100%; }
+.ringCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ringPct { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); }
+
+.packetStats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.packetStat { text-align: center; }
+.packetVal { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-primary); }
+.packetKey { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+.packetDivider { font-size: 1.5rem; color: var(--border); font-weight: 300; }
+
+.scanningHint { font-size: 0.8rem; color: var(--text-muted); margin: 0; text-align: center; }
+
+.cancelBtn {
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.cancelBtn:hover { border-color: #ef4444; color: #ef4444; }
+
+/* ── Complete State ─────────────────────────────────────── */
+.completeState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.successCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid #10b981;
+  color: #10b981;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTitle { font-size: 1.2rem; font-weight: 700; color: #10b981; margin: 0; }
+.successDesc { font-size: 0.875rem; color: var(--text-secondary); margin: 0; }
+
+.downloadBtn {
+  width: 100%;
+  padding: 14px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.downloadBtn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.resetBtn {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.resetBtn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ── Error ──────────────────────────────────────────────── */
+.errorState { text-align: center; }
+.errorText { color: #ef4444; font-size: 0.9rem; margin-bottom: 16px; }
+
+/* ── Tips ───────────────────────────────────────────────── */
+.tips {
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+.tipTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 8px;
+}
+.tipList {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .rightCol { position: static; }
+}

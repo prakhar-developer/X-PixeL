@@ -1,0 +1,122 @@
+.wrapper {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.sessionId {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.currentState {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.activeIndicator {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: blink 1s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.stateGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-width: fit-content;
+}
+
+.stateNode {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+  color: var(--text-muted);
+}
+.past { border-color: var(--accent); background: rgba(16,185,129,0.15); color: var(--accent); }
+.current { border-width: 2px; box-shadow: 0 0 16px currentColor; }
+.future { opacity: 0.4; }
+
+.stateNum { font-size: 0.7rem; font-weight: 700; }
+
+.stateInfo {
+  margin-left: 8px;
+  min-width: 70px;
+}
+
+.stateName {
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.stateDesc {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.connector {
+  width: 28px;
+  height: 2px;
+  background: var(--border);
+  margin-top: 15px;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.connectorActive { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+
+.statsRow {
+  display: flex;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.statItem { display: flex; flex-direction: column; gap: 2px; }
+.statLabel { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.statValue { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }

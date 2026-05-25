@@ -1,0 +1,236 @@
+.page {
+  min-height: 100vh;
+  padding: 100px 24px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 32px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modeTab {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modeTab:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.05);
+}
+
+.activeTab {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.modeTabHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.modeName {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.modeBadge {
+  background: var(--primary-glow);
+  color: var(--primary);
+}
+
+.modeBrief {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.panelTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.activeCode {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary);
+}
+
+.panelDesc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.specCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.specLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.specVal {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.visualPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.previewLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.patternContainer {
+  height: 200px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr {
+  background: #fff;
+  padding: 16px;
+}
+
+.qrGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  width: 140px;
+  height: 140px;
+}
+
+.qrBlock {
+  background: #000;
+}
+
+.rgbGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #ff0055 0%, #00ff66 50%, #0055ff 100%);
+  opacity: 0.45;
+  filter: contrast(1.5) saturate(1.8);
+}
+
+.flickerWaves {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flickerGrid {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #111 0%, #eee 50%, #111 100%);
+  background-size: 100% 20px;
+  animation: flicker-move 0.2s linear infinite;
+}
+
+@keyframes flicker-move {
+  from { background-position: 0 0; }
+  to { background-position: 0 40px; }
+}
+
+.hybridCombo {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hybridOverlays {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, transparent 20%, #000 80%),
+                    linear-gradient(rgba(0, 245, 255, 0.15) 1px, transparent 1px);
+  background-size: 100% 100%, 12px 12px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}

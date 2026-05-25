@@ -1,0 +1,15 @@
+{
+  "name": "x-pixel-native",
+  "version": "0.1.0",
+  "description": "iOS (Metal/AVFoundation) and Android (Vulkan/Camera2) native modules — Phase 5+",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "echo 'no tests'",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

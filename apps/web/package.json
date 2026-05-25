@@ -1,0 +1,36 @@
+{
+  "name": "x-pixel-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo 'no tests'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "framer-motion": "^11.2.10",
+    "jsqr": "^1.4.0",
+    "lucide-react": "^0.378.0",
+    "next": "14.2.3",
+    "qrcode": "^1.5.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-webcam": "^7.2.0",
+    "recharts": "^2.12.7",
+    "x-pixel-core": "0.1.0",
+    "x-pixel-cv-pipeline": "0.1.0",
+    "x-pixel-optical-engine": "0.1.0",
+    "x-pixel-ui-kit": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}

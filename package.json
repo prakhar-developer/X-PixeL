@@ -1,0 +1,39 @@
+{
+  "name": "x-pixel",
+  "version": "0.1.0",
+  "description": "Production-grade optical communication platform for cross-platform file transfer",
+  "private": true,
+  "workspaces": [
+    "packages/core",
+    "packages/optical-engine",
+    "packages/cv-pipeline",
+    "packages/ui-kit",
+    "packages/native",
+    "apps/mobile",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:web": "yarn workspace x-pixel-web dev",
+    "build:web": "yarn workspace x-pixel-web build",
+    "start:web": "yarn workspace x-pixel-web start",
+    "dev": "yarn workspace x-pixel-mobile dev",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test",
+    "lint": "yarn workspaces run lint",
+    "type-check": "yarn workspaces run type-check"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.0.0"
+  },
+  "dependencies": {
+    "docx": "^9.7.0"
+  }
+}

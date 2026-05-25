@@ -1,0 +1,16 @@
+{
+  "name": "x-pixel-ui-kit",
+  "version": "0.1.0",
+  "description": "Shared design tokens, colors, animations, and typography system",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "echo 'no tests'",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

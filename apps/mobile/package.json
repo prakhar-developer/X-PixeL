@@ -9,8 +9,9 @@
     "test": "jest",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "build:android": "cd android && ./gradlew assembleRelease",
-    "build:android:bundle": "cd android && ./gradlew bundleRelease"
+    "build:android": "cd ../../XPixelNative/android && ./gradlew assembleRelease",
+    "build:android:bundle": "cd ../../XPixelNative/android && ./gradlew bundleRelease",
+    "publish:apk": "node ../../scripts/copy-apk.js ../../XPixelNative/android/app/build/outputs/apk/release/app-release.apk ../../apps/web/public/downloads/xpixel-android.apk"
   },
   "dependencies": {
     "react": "18.2.0",

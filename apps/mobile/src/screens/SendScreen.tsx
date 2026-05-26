@@ -34,8 +34,12 @@ export default function SendScreen() {
 
   const pickFile = async () => {
     try {
-      const res = await DocumentPicker.pickSingle({ type: [DocumentPicker.types.allFiles] });
-      setFile({ name: res.name ?? 'file', size: res.size ?? 0, path: res.uri });
+      const res = await DocumentPicker.pickSingle({
+        type: [DocumentPicker.types.allFiles],
+        copyTo: 'cachesDirectory',
+      });
+      const path = res.fileCopyUri ?? res.uri;
+      setFile({ name: res.name ?? 'file', size: res.size ?? 0, path });
       setStep('protocol');
     } catch (e) {
       if (!DocumentPicker.isCancel(e)) console.error(e);
@@ -48,19 +52,19 @@ export default function SendScreen() {
     setProgress(0);
     setStep('broadcast');
 
-    // Read file bytes
-    const b64 = await RNFS.readFile(file.path.replace('file://', ''), 'base64');
-    const bytes = Buffer.from(b64, 'base64');
+    // Read file bytes from a file:// or cached copy URI.
+    const filePath = file.path.startsWith('file://') ? file.path.replace('file://', '') : file.path;
+    const b64 = await RNFS.readFile(filePath, 'base64');
+    const byteLength = Math.floor((b64.length * 3) / 4);
     const chunkSize = proto.chunkSize;
-    const total = Math.ceil(bytes.length / chunkSize);
+    const total = Math.ceil(byteLength / chunkSize);
     const fileId = Math.floor(Math.random() * 0xffffff);
     const encoded: string[] = [];
 
     for (let i = 0; i < total; i++) {
-      const chunk = bytes.slice(i * chunkSize, Math.min((i + 1) * chunkSize, bytes.length));
       // Generate a simple colored frame representation as base64 data URI
       // In production, this would use a native canvas module to render actual optical frames
-      encoded.push(`frame_${i}_${chunk.length}_${fileId}`);
+      encoded.push(`frame_${i}_${Math.min(chunkSize, byteLength - i * chunkSize)}_${fileId}`);
       setProgress(((i + 1) / total) * 100);
       await new Promise(r => setTimeout(r, 2));
     }

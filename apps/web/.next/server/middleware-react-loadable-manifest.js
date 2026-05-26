@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST='{"hooks\\\\useOpticalReceiver.ts -> jsqr":{"id":8290,"files":["static/chunks/df56de66.5b3c1b2d97685cac.js"]}}';
+self.__REACT_LOADABLE_MANIFEST="{\"hooks\\\\useOpticalReceiver.ts -> jsqr\":{\"id\":\"hooks\\\\useOpticalReceiver.ts -> jsqr\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_jsqr_dist_jsQR_js.js\"]}}"

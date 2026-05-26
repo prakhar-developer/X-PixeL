@@ -322,6 +322,94 @@
   line-height: 1;
 }
 
+/* ─── Mobile Install ────────────────────────────────────────────────────── */
+.installSection {
+  padding: 80px 0;
+  background: linear-gradient(180deg, rgba(124,58,237,0.04), rgba(0,245,255,0.02));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.installGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.installCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+}
+
+.installHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.installPlatform {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.installTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.installList {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.installActions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.installNote {
+  border: 1px solid rgba(124,58,237,0.25);
+  background: rgba(124,58,237,0.06);
+}
+
+.installText {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.875rem;
+}
+
+/* ─── Downloads ───────────────────────────────────────────────────────── */
+.downloadSection {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,245,255,0.02), rgba(124,58,237,0.02));
+}
+.downloadCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.downloadBtn { text-decoration: none; }
+
 /* ─── CTA ────────────────────────────────────────────────────────────────── */
 .ctaSection { padding: 80px 0; }
 
@@ -362,6 +450,7 @@
 @media (max-width: 1024px) {
   .featuresGrid { grid-template-columns: repeat(2, 1fr); }
   .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .installGrid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .featuresGrid { grid-template-columns: 1fr; }

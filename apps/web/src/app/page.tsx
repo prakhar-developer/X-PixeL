@@ -53,6 +53,25 @@ const FEATURES = [
   },
 ];
 
+const INSTALL_STEPS = [
+  {
+    platform: 'Android',
+    title: 'Install from Chrome',
+    badge: 'APK-ready workflow',
+    steps: ['Open X-Pixel in Chrome', 'Tap the browser menu', 'Choose Install app or Add to Home screen'],
+    action: 'Open Web App',
+    href: '/transfer/send',
+  },
+  {
+    platform: 'iPhone',
+    title: 'Install from Safari',
+    badge: 'PWA install flow',
+    steps: ['Open X-Pixel in Safari', 'Tap Share', 'Choose Add to Home Screen'],
+    action: 'Open Web App',
+    href: '/transfer/receive',
+  },
+];
+
 export default function HomePage() {
   return (
     <div className={styles.page}>
@@ -217,6 +236,92 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── Mobile Install ───────────────────────────────────────────────── */}
+      <section className={styles.installSection}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <div className="badge badge-accent">Mobile Install</div>
+            <h2 className={styles.sectionTitle}>
+              Install X-Pixel on your phone
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              The site is a full installable app on mobile. Android users can install it from Chrome,
+              and iPhone users can add it to the Home Screen from Safari.
+            </p>
+          </div>
+
+          <div className={styles.installGrid}>
+            {INSTALL_STEPS.map((item) => (
+              <div key={item.platform} className={`${styles.installCard} card`}>
+                <div className={styles.installHeader}>
+                  <div>
+                    <div className={styles.installPlatform}>{item.platform}</div>
+                    <div className={styles.installTitle}>{item.title}</div>
+                  </div>
+                  <span className="badge badge-primary" style={{ fontSize: '0.65rem' }}>{item.badge}</span>
+                </div>
+
+                <ol className={styles.installList}>
+                  {item.steps.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+
+                <div className={styles.installActions}>
+                  <Link href={item.href} className="btn btn-primary">
+                    {item.action}
+                  </Link>
+                </div>
+              </div>
+            ))}
+
+            <div className={`${styles.installCard} ${styles.installNote} card`}>
+              <div className={styles.installPlatform}>Native binaries</div>
+              <div className={styles.installTitle}>APK / IPA release builds</div>
+              <p className={styles.installText}>
+                This workspace currently ships the web app and PWA install flow. The React Native
+                mobile project now has a native template under `XPixelNative/` and you can build
+                a signed Android APK locally. After building, place the release APK at
+                <strong>/downloads/xpixel-android.apk</strong> to make it available for direct download.
+              </p>
+              <p className={styles.installText}>
+                Download Android APK: <Link href="/downloads/xpixel-android.apk" className="btn btn-secondary">xpixel-android.apk</Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Downloads ───────────────────────────────────────────────────── */}
+      <section className={styles.downloadSection}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <div className="badge badge-primary">Downloads</div>
+            <h2 className={styles.sectionTitle}>Download Native Binaries</h2>
+            <p className={styles.sectionSubtitle}>Grab the latest signed Android APK built from this repository.</p>
+          </div>
+
+          <div className={styles.installGrid}>
+            <div className={`${styles.installCard} card`}>
+              <div className={styles.installHeader}>
+                <div>
+                  <div className={styles.installPlatform}>Android APK</div>
+                  <div className={styles.installTitle}>xpixel-android.apk</div>
+                </div>
+                <span className="badge badge-accent" style={{ fontSize: '0.65rem' }}>Signed Release</span>
+              </div>
+
+              <p className={styles.installText}>Size: 50.9 MB — Built: 2026-05-26 UTC</p>
+
+              <div className={styles.installActions}>
+                <Link href="/downloads/xpixel-android.apk" className="btn btn-primary">
+                  Download APK
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* ─── CTA ─────────────────────────────────────────────────────────────── */}
       <section className={styles.ctaSection}>
         <div className="container">
